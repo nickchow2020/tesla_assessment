@@ -1,5 +1,6 @@
 import React from 'react'
 import { data } from '../data'
+import {v4 as uuidv4} from 'uuid';
 
 export const Question1:React.FC = ()=> {
 
@@ -20,7 +21,7 @@ export const Question1:React.FC = ()=> {
 
   const tableDetailJSX = needData.map((obj,idx) => {
     const sum = 
-    <tr key={10+idx}>
+    <tr key={uuidv4()}>
       <td>{obj.region}</td>
       <td>SUM</td>
       <td>{obj.sales}</td>
@@ -28,7 +29,7 @@ export const Question1:React.FC = ()=> {
 
     const detailJSX = obj.data.map((obj,idx) => {
       let detailJSX = 
-      <tr key={20+idx}>
+      <tr key={uuidv4()}>
         <td>{obj.region}</td>
         <td>{obj.model}</td>
         <td>{obj.sales}</td>

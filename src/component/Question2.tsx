@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { data } from '../data'
 import Option from './Option'
+import {v4 as uuidv4} from 'uuid';
 
 const Question2 = () => {
 
@@ -11,46 +12,32 @@ const Question2 = () => {
   const tableHead = Object.keys(data[1])
   const tableHeadJSX = tableHead.map(header => <th key={header}>{header}</th>)
   const detailJSX = displayData.map(
-    (detail, idx) =>
-      <tr key={30 + idx}>
+    (detail) =>
+      <tr key={uuidv4()}>
         <td>{detail.region}</td>
         <td>{detail.model}</td>
         <td>{detail.sales}</td>
       </tr>
   )
 
-  function getAllRegion(
+  function getAll(
     arr: {
       region: string,
       model: string,
-      sales: number
-    }[]) {
+      sales: number,
+      [index:string]:string | number
+    }[],needData:string) {
     let result = new Set()
 
     for (let obj of arr) {
-      result.add(obj['region'])
+      result.add(obj[needData])
     }
 
     return Array.from(result)
   }
 
-  function getAllModel(
-    arr: {
-      region: string,
-      model: string,
-      sales: number
-    }[]) {
-    let result = new Set()
-
-    for (let obj of arr) {
-      result.add(obj['model'])
-    }
-
-    return Array.from(result)
-  }
-
-  const allModel = getAllModel(data)
-  const allRegion = getAllRegion(data)
+  const allModel = getAll(data,'model')
+  const allRegion = getAll(data,'region')
 
 
   const handleChangeForRegion = (event: React.ChangeEvent<HTMLSelectElement>) => {
